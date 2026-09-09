@@ -1,18 +1,14 @@
-import { Link } from "expo-router";
 import React, { Component } from "react";
-import { Text, StyleSheet, View, Image } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
+import { Link } from "expo-router";
 
-export default class index extends Component {
+export default class contact extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> The freshest to ever do it </Text>
-        <Text> This is a React Native app </Text>
-        <Link href="/about">
-          <Text>Learn More</Text>
-        </Link>
-        <Link href="/contact">
-          <Text>Contact Us</Text>
+        <Text style={styles.title}> Contact Us </Text>
+        <Link href="/home">
+          <Text>Go Back</Text>
         </Link>
       </View>
     );

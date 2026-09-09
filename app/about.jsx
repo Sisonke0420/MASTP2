@@ -11,6 +11,9 @@ export default class about extends Component {
           <Link href="/home">
             <Text>Go Back</Text>
           </Link>
+          <Link href="/contact">
+            <Text>Contact Us</Text>
+          </Link>
         </View>
       </>
     );
