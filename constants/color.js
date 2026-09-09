@@ -1,10 +1,8 @@
-export const Colors = {
+export const colors = {
   primary: "#f4511e",
   warning: "#f4c20d",
   success: "#0f9d58",
   error: "#db4437",
-
-
 
   dark: {
     primary: "#f4511e",
@@ -21,9 +19,10 @@ export const Colors = {
     secondary: "#e3e3e3",
     background: "#ffffff",
     text: "#000000",
-    navigationBackground: "#ffffff",
+    navigationBackground: "#dd8818",
     iconColor: "#000000",
     IconColorFocused: "#f4511e",
     uiBackground: "#f2f2f2",
   },
 };
+ 
