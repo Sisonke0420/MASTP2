@@ -10,7 +10,7 @@ export default function RootLayout() {
   const theme = colors[colorScheme] ?? colors.light;
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider themes={colors} colorScheme={colorScheme}>
       <MenuProvider>
         <Stack
           initialRouteName="Home"
@@ -20,17 +20,17 @@ export default function RootLayout() {
             headerTitleStyle: { fontWeight: "bold" },
           }}
         >
-        <Stack.Screen
-          name="Home"
-          options={{
-            title: "Home",
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Contact"
-          options={{ title: "Contact", headerShown: false }}
-        />
+          <Stack.Screen
+            name="Home"
+            options={{
+              title: "Home",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Contact"
+            options={{ title: "Contact", headerShown: false }}
+          />
         </Stack>
       </MenuProvider>
     </ThemeProvider>

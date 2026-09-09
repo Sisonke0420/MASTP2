@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { useAppTheme } from "../constants/theme-context";
+import { ThemeToggle, useAppTheme } from "../constants/theme-context";
 
 export default function Contact() {
   const theme = useAppTheme();
@@ -45,6 +45,7 @@ export default function Contact() {
           Reach the team for menu questions, account help, or a little kitchen
           wisdom.
         </Text>
+        <ThemeToggle />
 
         <View style={styles.contactCard}>
           <Text style={styles.cardLabel}>DIRECT LINE</Text>

@@ -14,7 +14,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useMenu } from "../constants/menu-context";
-import { useAppTheme } from "../constants/theme-context";
+import { ThemeToggle, useAppTheme } from "../constants/theme-context";
 
 const courses = ["Starter", "Main", "Dessert", "Drinks"];
 
@@ -88,6 +88,7 @@ export default function Home() {
               <Text style={styles.countLabel}>DISHES</Text>
             </View>
           </View>
+          <ThemeToggle />
 
           <View style={styles.formCard}>
             <Text style={styles.sectionEyebrow}>NEW DISH</Text>
