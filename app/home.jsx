@@ -13,8 +13,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { colors } from "../constants/color";
 import { useMenu } from "../constants/menu-context";
+import { useAppTheme } from "../constants/theme-context";
 
 const courses = ["Starter", "Main", "Dessert", "Drinks"];
 
@@ -25,6 +25,8 @@ export default function Home() {
   const [errors, setErrors] = useState({});
   const [confirmation, setConfirmation] = useState("");
   const { addItem, menuItems } = useMenu();
+  const theme = useAppTheme();
+  const styles = createStyles(theme);
 
   const updateField = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -63,7 +65,7 @@ export default function Home() {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <StatusBar style="dark" />
+      <StatusBar style={theme.background === "#20231F" ? "light" : "dark"} />
       <KeyboardAvoidingView
         style={styles.keyboardView}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -158,9 +160,14 @@ export default function Home() {
             ) : null}
           </View>
 
-          <Link href="/about" asChild>
+          <Link href="/Menu" asChild>
             <Pressable style={styles.viewMenuButton}>
               <Text style={styles.viewMenuText}>View current menu →</Text>
+            </Pressable>
+          </Link>
+          <Link href="/contact" asChild>
+            <Pressable style={styles.contactLink}>
+              <Text style={styles.contactLinkText}>Contact kitchen support</Text>
             </Pressable>
           </Link>
         </ScrollView>
@@ -179,6 +186,9 @@ function Field({
   keyboardType,
   prefix,
 }) {
+  const theme = useAppTheme();
+  const styles = createStyles(theme);
+
   return (
     <View style={styles.fieldGroup}>
       <Text style={styles.label}>{label}</Text>
@@ -188,7 +198,7 @@ function Field({
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor={colors.placeholder}
+          placeholderTextColor={theme.placeholder}
           style={[styles.input, multiline && styles.textArea]}
           multiline={multiline}
           keyboardType={keyboardType}
@@ -200,142 +210,145 @@ function Field({
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: colors.background },
-  keyboardView: { flex: 1 },
-  content: { padding: 24, paddingBottom: 44 },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 26,
-  },
-  eyebrow: {
-    color: colors.primary,
-    fontSize: 11,
-    fontWeight: "800",
-    letterSpacing: 1.5,
-    marginBottom: 10,
-  },
-  title: {
-    color: colors.ink,
-    fontSize: 32,
-    fontWeight: "800",
-    lineHeight: 36,
-    maxWidth: 260,
-  },
-  subtitle: {
-    color: colors.muted,
-    fontSize: 15,
-    lineHeight: 21,
-    marginTop: 9,
-    maxWidth: 260,
-  },
-  countBadge: {
-    backgroundColor: colors.ink,
-    width: 67,
-    height: 67,
-    borderRadius: 34,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 5,
-  },
-  countNumber: { color: colors.accent, fontSize: 23, fontWeight: "800" },
-  countLabel: {
-    color: colors.background,
-    fontSize: 9,
-    fontWeight: "800",
-    letterSpacing: 1,
-  },
-  formCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 20,
-    padding: 20,
-    shadowColor: colors.ink,
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 7 },
-    elevation: 3,
-  },
-  sectionEyebrow: {
-    color: colors.primary,
-    fontSize: 10,
-    fontWeight: "800",
-    letterSpacing: 1.4,
-    marginBottom: 5,
-  },
-  sectionTitle: {
-    color: colors.ink,
-    fontSize: 22,
-    fontWeight: "800",
-    marginBottom: 18,
-  },
-  fieldGroup: { marginBottom: 16 },
-  label: {
-    color: colors.label,
-    fontSize: 13,
-    fontWeight: "700",
-    marginBottom: 8,
-  },
-  inputShell: {
-    flexDirection: "row",
-    alignItems: "center",
-    minHeight: 49,
-    borderWidth: 1,
-    borderColor: colors.inputBorder,
-    borderRadius: 11,
-    backgroundColor: colors.inputBackground,
-    paddingHorizontal: 13,
-  },
-  inputError: { borderColor: colors.error },
-  input: { flex: 1, color: colors.ink, fontSize: 15, paddingVertical: 0 },
-  textArea: { minHeight: 77, paddingTop: 13, paddingBottom: 13 },
-  prefix: { color: colors.muted, fontSize: 16, marginRight: 4 },
-  error: { color: colors.error, fontSize: 12, marginTop: 6 },
-  courseRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  courseChip: {
-    borderWidth: 1,
-    borderColor: colors.chipBorder,
-    borderRadius: 20,
-    paddingVertical: 9,
-    paddingHorizontal: 14,
-    backgroundColor: colors.inputBackground,
-  },
-  courseChipSelected: {
-    borderColor: colors.primary,
-    backgroundColor: colors.primary,
-  },
-  courseText: { color: colors.muted, fontSize: 13, fontWeight: "700" },
-  courseTextSelected: { color: colors.surface },
-  addButton: {
-    alignItems: "center",
-    backgroundColor: colors.ink,
-    borderRadius: 11,
-    marginTop: 5,
-    paddingVertical: 15,
-  },
-  buttonPressed: { opacity: 0.8 },
-  addButtonText: { color: colors.surface, fontSize: 15, fontWeight: "800" },
-  confirmation: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 14,
-  },
-  confirmationMark: {
-    color: colors.success,
-    fontSize: 17,
-    fontWeight: "800",
-    marginRight: 7,
-  },
-  confirmationText: { color: colors.success, fontSize: 13, fontWeight: "700" },
-  viewMenuButton: {
-    alignItems: "center",
-    borderColor: colors.ink,
-    borderRadius: 11,
-    borderWidth: 1,
-    marginTop: 24,
-    paddingVertical: 14,
-  },
-  viewMenuText: { color: colors.ink, fontSize: 14, fontWeight: "800" },
-});
+const createStyles = (theme) =>
+  StyleSheet.create({
+    safeArea: { flex: 1, backgroundColor: theme.background },
+    keyboardView: { flex: 1 },
+    content: { padding: 24, paddingBottom: 44 },
+    header: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      marginBottom: 26,
+    },
+    eyebrow: {
+      color: theme.primary,
+      fontSize: 11,
+      fontWeight: "800",
+      letterSpacing: 1.5,
+      marginBottom: 10,
+    },
+    title: {
+      color: theme.ink,
+      fontSize: 32,
+      fontWeight: "800",
+      lineHeight: 36,
+      maxWidth: 260,
+    },
+    subtitle: {
+      color: theme.muted,
+      fontSize: 15,
+      lineHeight: 21,
+      marginTop: 9,
+      maxWidth: 260,
+    },
+    countBadge: {
+      backgroundColor: theme.ink,
+      width: 67,
+      height: 67,
+      borderRadius: 34,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 5,
+    },
+    countNumber: { color: theme.accent, fontSize: 23, fontWeight: "800" },
+    countLabel: {
+      color: theme.background,
+      fontSize: 9,
+      fontWeight: "800",
+      letterSpacing: 1,
+    },
+    formCard: {
+      backgroundColor: theme.surface,
+      borderRadius: 20,
+      padding: 20,
+      shadowColor: theme.ink,
+      shadowOpacity: 0.08,
+      shadowRadius: 16,
+      shadowOffset: { width: 0, height: 7 },
+      elevation: 3,
+    },
+    sectionEyebrow: {
+      color: theme.primary,
+      fontSize: 10,
+      fontWeight: "800",
+      letterSpacing: 1.4,
+      marginBottom: 5,
+    },
+    sectionTitle: {
+      color: theme.ink,
+      fontSize: 22,
+      fontWeight: "800",
+      marginBottom: 18,
+    },
+    fieldGroup: { marginBottom: 16 },
+    label: {
+      color: theme.label,
+      fontSize: 13,
+      fontWeight: "700",
+      marginBottom: 8,
+    },
+    inputShell: {
+      flexDirection: "row",
+      alignItems: "center",
+      minHeight: 49,
+      borderWidth: 1,
+      borderColor: theme.inputBorder,
+      borderRadius: 11,
+      backgroundColor: theme.inputBackground,
+      paddingHorizontal: 13,
+    },
+    inputError: { borderColor: theme.error },
+    input: { flex: 1, color: theme.ink, fontSize: 15, paddingVertical: 0 },
+    textArea: { minHeight: 77, paddingTop: 13, paddingBottom: 13 },
+    prefix: { color: theme.muted, fontSize: 16, marginRight: 4 },
+    error: { color: theme.error, fontSize: 12, marginTop: 6 },
+    courseRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+    courseChip: {
+      borderWidth: 1,
+      borderColor: theme.chipBorder,
+      borderRadius: 20,
+      paddingVertical: 9,
+      paddingHorizontal: 14,
+      backgroundColor: theme.inputBackground,
+    },
+    courseChipSelected: {
+      borderColor: theme.primary,
+      backgroundColor: theme.primary,
+    },
+    courseText: { color: theme.muted, fontSize: 13, fontWeight: "700" },
+    courseTextSelected: { color: theme.surface },
+    addButton: {
+      alignItems: "center",
+      backgroundColor: theme.ink,
+      borderRadius: 11,
+      marginTop: 5,
+      paddingVertical: 15,
+    },
+    buttonPressed: { opacity: 0.8 },
+    addButtonText: { color: theme.surface, fontSize: 15, fontWeight: "800" },
+    confirmation: {
+      alignItems: "center",
+      flexDirection: "row",
+      justifyContent: "center",
+      marginTop: 14,
+    },
+    confirmationMark: {
+      color: theme.success,
+      fontSize: 17,
+      fontWeight: "800",
+      marginRight: 7,
+    },
+    confirmationText: { color: theme.success, fontSize: 13, fontWeight: "700" },
+    viewMenuButton: {
+      alignItems: "center",
+      borderColor: theme.ink,
+      borderRadius: 11,
+      borderWidth: 1,
+      marginTop: 24,
+      paddingVertical: 14,
+    },
+    viewMenuText: { color: theme.ink, fontSize: 14, fontWeight: "800" },
+    contactLink: { alignItems: "center", paddingVertical: 14 },
+    contactLinkText: { color: theme.primary, fontSize: 14, fontWeight: "800" },
+  });

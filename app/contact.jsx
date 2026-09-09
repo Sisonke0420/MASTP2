@@ -1,34 +1,186 @@
-import React, { Component } from "react";
-import { Text, StyleSheet, View } from "react-native";
 import { Link } from "expo-router";
+import React, { useState } from "react";
+import {
+  Alert,
+  Linking,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { useAppTheme } from "../constants/theme-context";
 
-export default class contact extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}> Contact Us </Text>
-        <Link href="/home">
-          <Text>Go Back</Text>
-        </Link>
-      </View>
+export default function Contact() {
+  const theme = useAppTheme();
+  const styles = createStyles(theme);
+  const [message, setMessage] = useState("");
+
+  const sendMessage = () => {
+    if (!message.trim()) {
+      Alert.alert("Message needed", "Write a message before sending.");
+      return;
+    }
+    Alert.alert(
+      "Message ready",
+      "Your message has been sent to the kitchen team.",
     );
-  }
+    setMessage("");
+  };
+
+  return (
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <StatusBar style={theme.background === "#20231F" ? "light" : "dark"} />
+      <ScrollView
+        contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.eyebrow}>KITCHEN SUPPORT</Text>
+        <Text style={styles.title}>Let's keep service moving.</Text>
+        <Text style={styles.subtitle}>
+          Reach the team for menu questions, account help, or a little kitchen
+          wisdom.
+        </Text>
+
+        <View style={styles.contactCard}>
+          <Text style={styles.cardLabel}>DIRECT LINE</Text>
+          <Pressable onPress={() => Linking.openURL("tel:+15550142424")}>
+            <Text style={styles.cardValue}>+1 (555) 014-2424</Text>
+          </Pressable>
+          <Text style={styles.cardHint}>Mon-Fri, 9:00 AM - 6:00 PM</Text>
+        </View>
+        <View style={styles.contactCard}>
+          <Text style={styles.cardLabel}>EMAIL</Text>
+          <Pressable
+            onPress={() => Linking.openURL("mailto:hello@serviceboard.app")}
+          >
+            <Text style={styles.cardValue}>hello@serviceboard.app</Text>
+          </Pressable>
+          <Text style={styles.cardHint}>
+            Usually replies within one service
+          </Text>
+        </View>
+
+        <View style={styles.messageCard}>
+          <Text style={styles.cardLabel}>SEND A MESSAGE</Text>
+          <Text style={styles.messageTitle}>What can we help with?</Text>
+          <TextInput
+            value={message}
+            onChangeText={setMessage}
+            multiline
+            textAlignVertical="top"
+            placeholder="Tell us what's on your mind..."
+            placeholderTextColor={theme.placeholder}
+            style={styles.messageInput}
+          />
+          <Pressable
+            onPress={sendMessage}
+            style={({ pressed }) => [
+              styles.sendButton,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Text style={styles.sendButtonText}>Send message</Text>
+          </Pressable>
+        </View>
+
+        <Link href="/home" asChild>
+          <Pressable style={styles.backButton}>
+            <Text style={styles.backButtonText}>Back to menu builder</Text>
+          </Pressable>
+        </Link>
+        <Link href="/Menu" asChild>
+          <Pressable style={styles.backButton}>
+            <Text style={styles.backButtonText}>View current menu</Text>
+          </Pressable>
+        </Link>
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: 100,
-    height: 100,
-  },
-  title: {
-    padding: 16,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-});
+const createStyles = (theme) =>
+  StyleSheet.create({
+    safeArea: { flex: 1, backgroundColor: theme.background },
+    content: { padding: 24, paddingBottom: 44 },
+    eyebrow: {
+      color: theme.primary,
+      fontSize: 10,
+      fontWeight: "800",
+      letterSpacing: 1.4,
+      marginBottom: 10,
+    },
+    title: {
+      color: theme.ink,
+      fontSize: 32,
+      fontWeight: "800",
+      lineHeight: 37,
+      maxWidth: 330,
+    },
+    subtitle: {
+      color: theme.muted,
+      fontSize: 15,
+      lineHeight: 22,
+      marginBottom: 25,
+      marginTop: 10,
+    },
+    contactCard: {
+      backgroundColor: theme.surface,
+      borderRadius: 16,
+      marginBottom: 11,
+      padding: 18,
+    },
+    cardLabel: {
+      color: theme.primary,
+      fontSize: 10,
+      fontWeight: "800",
+      letterSpacing: 1.3,
+      marginBottom: 8,
+    },
+    cardValue: { color: theme.ink, fontSize: 17, fontWeight: "800" },
+    cardHint: { color: theme.muted, fontSize: 13, marginTop: 5 },
+    messageCard: {
+      backgroundColor: theme.surface,
+      borderRadius: 16,
+      marginTop: 14,
+      padding: 18,
+    },
+    messageTitle: {
+      color: theme.ink,
+      fontSize: 18,
+      fontWeight: "800",
+      marginBottom: 13,
+    },
+    messageInput: {
+      backgroundColor: theme.inputBackground,
+      borderColor: theme.inputBorder,
+      borderRadius: 11,
+      borderWidth: 1,
+      color: theme.ink,
+      fontSize: 15,
+      height: 105,
+      padding: 13,
+    },
+    sendButton: {
+      alignItems: "center",
+      backgroundColor: theme.ink,
+      borderRadius: 11,
+      marginTop: 13,
+      paddingVertical: 14,
+    },
+    pressed: { opacity: 0.8 },
+    sendButtonText: { color: theme.surface, fontSize: 15, fontWeight: "800" },
+    backButton: {
+      alignItems: "center",
+      borderColor: theme.ink,
+      borderRadius: 11,
+      borderWidth: 1,
+      marginTop: 17,
+      paddingVertical: 13,
+    },
+    backButtonText: { color: theme.ink, fontSize: 14, fontWeight: "800" },
+  });
