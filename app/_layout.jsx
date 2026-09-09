@@ -13,7 +13,7 @@ export default function RootLayout() {
     <ThemeProvider theme={theme}>
       <MenuProvider>
         <Stack
-          initialRouteName="home"
+          initialRouteName="Home"
           screenOptions={{
             headerStyle: { backgroundColor: theme.navigationBackground },
             headerTintColor: theme.text,
@@ -21,18 +21,14 @@ export default function RootLayout() {
           }}
         >
         <Stack.Screen
-          name="home"
+          name="Home"
           options={{
             title: "Home",
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="about"
-          options={{ title: "Menu", headerShown: false }}
-        />
-        <Stack.Screen
-          name="contact"
+          name="Contact"
           options={{ title: "Contact", headerShown: false }}
         />
         </Stack>

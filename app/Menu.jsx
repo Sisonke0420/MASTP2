@@ -55,7 +55,7 @@ export default function About() {
           ))
         )}
 
-        <Link href="/home" asChild>
+        <Link href="/Home" asChild>
           <Pressable style={styles.addButton}>
             <Text style={styles.addButtonText}>+ Add another dish</Text>
           </Pressable>

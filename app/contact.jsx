@@ -88,7 +88,7 @@ export default function Contact() {
           </Pressable>
         </View>
 
-        <Link href="/home" asChild>
+        <Link href="/Home" asChild>
           <Pressable style={styles.backButton}>
             <Text style={styles.backButtonText}>Back to menu builder</Text>
           </Pressable>

@@ -165,9 +165,11 @@ export default function Home() {
               <Text style={styles.viewMenuText}>View current menu →</Text>
             </Pressable>
           </Link>
-          <Link href="/contact" asChild>
+          <Link href="/Contact" asChild>
             <Pressable style={styles.contactLink}>
-              <Text style={styles.contactLinkText}>Contact kitchen support</Text>
+              <Text style={styles.contactLinkText}>
+                Contact kitchen support
+              </Text>
             </Pressable>
           </Link>
         </ScrollView>
