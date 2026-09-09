@@ -5,10 +5,27 @@ import { Stack } from "expo-router";
 export default class RootLayout extends Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Stack />
-        <Text> Footer </Text>
-      </View>
+      <Stack initialRouteName="home">
+        <Stack.Screen
+          name="home"
+          options={{
+            title: "Home",
+          }}
+        />
+        <Stack.Screen
+          name="about"
+          options={{
+            title: "About",
+          }}
+        />
+        <Stack.Screen
+          name="contact"
+          options={{
+            title: "Contact",
+            headerShown: false,
+          }}
+        />
+      </Stack>
     );
   }
 }
